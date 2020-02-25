@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.4-apache
 MAINTAINER Henry Mohn <henry@toasterlint.com>
 
 # Enable Apache Rewrite Module
