@@ -1,8 +1,6 @@
 name: build our image
 
-on:
-  push:
-    branches: master
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -23,13 +21,13 @@ jobs:
           docker buildx build --push \
             --tag toasterlint/php-apache-mysql:latest \
             --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for latest
+      - name: build the image for 7.4-nowarn
         if: github.ref == 'refs/heads/7.4-nowarn'
         run: |
           docker buildx build --push \
             --tag toasterlint/php-apache-mysql:7.4-nowarn \
             --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for latest
+      - name: build the image for 8.0-nowarn
         if: github.ref == 'refs/heads/8.0-nowarn'
         run: |
           docker buildx build --push \
