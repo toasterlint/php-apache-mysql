@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.1-apache
 LABEL maintainer="Henry Mohn <henry@toasterlint.com>"
 
 # Enable Apache Rewrite Module
