@@ -45,3 +45,9 @@ jobs:
           docker buildx build --push \
             --tag toasterlint/php-apache-mysql:8.2-nowarn \
             --platform linux/amd64,linux/arm/v7,linux/arm64 .
+      - name: build the image for 8.3-nowarn
+        if: github.ref == 'refs/heads/8.3-nowarn'
+        run: |
+          docker buildx build --push \
+            --tag toasterlint/php-apache-mysql:8.3-nowarn \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 .
