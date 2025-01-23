@@ -1,6 +1,6 @@
 name: build our image
 
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -19,41 +19,20 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:latest \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for 7.4-nowarn
-        if: github.ref == 'refs/heads/7.4-nowarn'
-        run: |
+            --tag toasterlint/php-apache-mysql:latest --tag toasterlint/php-apache-mysql:8.4-nowarn --tag toasterlint/php-apache-mysql:8.4 --tag toasterlint/php-apache-mysql:8 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.4
           docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:7.4-nowarn \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for 8.0-nowarn
-        if: github.ref == 'refs/heads/8.0-nowarn'
-        run: |
+            --tag toasterlint/php-apache-mysql:7.4-nowarn --tag toasterlint/php-apache-mysql:7.4 --tag toasterlint/php-apache-mysql:7 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./7.4
           docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.0-nowarn \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for 8.1-nowarn
-        if: github.ref == 'refs/heads/8.1-nowarn'
-        run: |
+            --tag toasterlint/php-apache-mysql:8.0-nowarn --tag toasterlint/php-apache-mysql:8.0 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.0
           docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.1-nowarn \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for 8.2-nowarn
-        if: github.ref == 'refs/heads/8.2-nowarn'
-        run: |
+            --tag toasterlint/php-apache-mysql:8.1-nowarn --tag toasterlint/php-apache-mysql:8.1 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.1
           docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.2-nowarn \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for 8.3-nowarn
-        if: github.ref == 'refs/heads/8.3-nowarn'
-        run: |
+            --tag toasterlint/php-apache-mysql:8.2-nowarn --tag toasterlint/php-apache-mysql:8.2 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.2
           docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.3-nowarn \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
-      - name: build the image for 8.4-nowarn
-        if: github.ref == 'refs/heads/8.4-nowarn'
-        run: |
-          docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.4-nowarn \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
+            --tag toasterlint/php-apache-mysql:8.3-nowarn --tag toasterlint/php-apache-mysql:8.3 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.3
