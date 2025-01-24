@@ -37,6 +37,8 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: toasterlint/php-apache-mysql:7.4-nowarn, toasterlint/php-apache-mysql:7.4, toasterlint/php-apache-mysql:7
+          build-args: |
+            MAKEFLAGS=-j1
       - name: Build and push 8.0
         uses: docker/build-push-action@v6
         with:
@@ -45,6 +47,8 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: toasterlint/php-apache-mysql:8.0-nowarn, toasterlint/php-apache-mysql:8.0
+          build-args: |
+            MAKEFLAGS=-j1
       - name: Build and push 8.1
         uses: docker/build-push-action@v6
         with:
@@ -53,6 +57,8 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: toasterlint/php-apache-mysql:8.1-nowarn, toasterlint/php-apache-mysql:8.1
+          build-args: |
+            MAKEFLAGS=-j1
       - name: Build and push 8.2
         uses: docker/build-push-action@v6
         with:
@@ -61,6 +67,8 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: toasterlint/php-apache-mysql:8.2-nowarn, toasterlint/php-apache-mysql:8.2
+          build-args: |
+            MAKEFLAGS=-j1
       - name: Build and push 8.3
         uses: docker/build-push-action@v6
         with:
@@ -69,3 +77,5 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: toasterlint/php-apache-mysql:8.3-nowarn, toasterlint/php-apache-mysql:8.3
+          build-args: |
+            MAKEFLAGS=-j1

@@ -29,3 +29,5 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: toasterlint/php-apache-mysql:8.0-nowarn, toasterlint/php-apache-mysql:8.0
+          build-args: |
+            MAKEFLAGS=-j1
