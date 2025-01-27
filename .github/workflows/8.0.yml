@@ -4,7 +4,8 @@ on: [workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -15,21 +16,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      - name: Install qemu-user-static
-        run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          buildkitd-config-inline: |
-            [worker.oci]
-              max-parallelism = 1
       - name: Build and push 8.0
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./8.0/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: toasterlint/php-apache-mysql:8.0-nowarn, toasterlint/php-apache-mysql:8.0
-          build-args: |
-            MAKEFLAGS=-j1
