@@ -4,7 +4,7 @@ on: [workflow_dispatch]
 
 jobs:
   build-latest:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - name: Checkout
@@ -14,15 +14,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and push latest
-        run: |
-          docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:latest --tag toasterlint/php-apache-mysql:8.4-nowarn --tag toasterlint/php-apache-mysql:8.4 --tag toasterlint/php-apache-mysql:8 \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.4
-
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./8.4/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: toasterlint/php-apache-mysql:latest, toasterlint/php-apache-mysql:8.4-nowarn, toasterlint/php-apache-mysql:8.4, toasterlint/php-apache-mysql:8
   build-7_4:
-    runs-on: self-hosted
-    # needs: [build-latest]    # This job runs after 'build-latest'
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,15 +36,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and push 7.4
-        run: |
-          docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:7.4-nowarn --tag toasterlint/php-apache-mysql:7.4 \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 ./7.4
-
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./7.4/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: toasterlint/php-apache-mysql:7.4-nowarn, toasterlint/php-apache-mysql:7.4, toasterlint/php-apache-mysql:7
   build-8_0:
-    runs-on: self-hosted
-    # needs: [build-7_4]       # This job runs after 'build-7_4'
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - name: Checkout
@@ -49,15 +59,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and push 8.0
-        run: |
-          docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.0-nowarn --tag toasterlint/php-apache-mysql:8.0 \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.0
-
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./8.0/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: toasterlint/php-apache-mysql:8.0-nowarn, toasterlint/php-apache-mysql:8.0
   build-8_1:
-    runs-on: self-hosted
-    # needs: [build-8_0]       # This job runs after 'build-8_0'
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - name: Checkout
@@ -67,15 +82,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and push 8.1
-        run: |
-          docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:813-nowarn --tag toasterlint/php-apache-mysql:8.1 \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.1
-
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./8.1/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: toasterlint/php-apache-mysql:8.1-nowarn, toasterlint/php-apache-mysql:8.1
   build-8_2:
-    runs-on: self-hosted
-    # needs: [build-8_1]       # This job runs after 'build-8_1'
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - name: Checkout
@@ -85,15 +105,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and push 8.2
-        run: |
-          docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.2-nowarn --tag toasterlint/php-apache-mysql:8.2 \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.2
-
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./8.2/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: toasterlint/php-apache-mysql:8.2-nowarn, toasterlint/php-apache-mysql:8.2
   build-8_3:
-    runs-on: self-hosted
-    # needs: [build-8_2]       # This job runs after 'build-8_2'
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - name: Checkout
@@ -103,8 +128,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and push 8.3
-        run: |
-          docker buildx build --push \
-            --tag toasterlint/php-apache-mysql:8.3-nowarn --tag toasterlint/php-apache-mysql:8.3 \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.3
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./8.3/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: toasterlint/php-apache-mysql:8.3-nowarn, toasterlint/php-apache-mysql:8.3
