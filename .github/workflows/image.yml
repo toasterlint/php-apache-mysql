@@ -14,24 +14,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # - name: Install qemu-user-static
-      #   run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        # with:
-        #   buildkitd-config-inline: |
-        #     [worker.oci]
-        #       max-parallelism = 1
       - name: Build and push latest
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./8.4/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: toasterlint/php-apache-mysql:latest, toasterlint/php-apache-mysql:8.4-nowarn, toasterlint/php-apache-mysql:8.4, toasterlint/php-apache-mysql:8
+        run: |
+          docker buildx build --push \
+            --tag toasterlint/php-apache-mysql:latest --tag toasterlint/php-apache-mysql:8.4-nowarn --tag toasterlint/php-apache-mysql:8.4 --tag toasterlint/php-apache-mysql:8 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.4
 
   build-7_4:
     runs-on: self-hosted
@@ -44,26 +31,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # - name: Install qemu-user-static
-      #   run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        # with:
-        #   buildkitd-config-inline: |
-        #     [worker.oci]
-        #       max-parallelism = 1
       - name: Build and push 7.4
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./7.4/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: toasterlint/php-apache-mysql:7.4-nowarn, toasterlint/php-apache-mysql:7.4, toasterlint/php-apache-mysql:7
-          # build-args: |
-          #   MAKEFLAGS=-j1
+        run: |
+          docker buildx build --push \
+            --tag toasterlint/php-apache-mysql:7.4-nowarn --tag toasterlint/php-apache-mysql:7.4 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./7.4
 
   build-8_0:
     runs-on: self-hosted
@@ -77,26 +49,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # - name: Install qemu-user-static
-      #   run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        # with:
-        #   buildkitd-config-inline: |
-        #     [worker.oci]
-        #       max-parallelism = 1
       - name: Build and push 8.0
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./8.0/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: toasterlint/php-apache-mysql:8.0-nowarn, toasterlint/php-apache-mysql:8.0
-          # build-args: |
-          #   MAKEFLAGS=-j1
+        run: |
+          docker buildx build --push \
+            --tag toasterlint/php-apache-mysql:8.0-nowarn --tag toasterlint/php-apache-mysql:8.0 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.0
 
   build-8_1:
     runs-on: self-hosted
@@ -110,26 +67,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # - name: Install qemu-user-static
-      #   run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        # with:
-        #   buildkitd-config-inline: |
-        #     [worker.oci]
-        #       max-parallelism = 1
       - name: Build and push 8.1
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./8.1/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: toasterlint/php-apache-mysql:8.1-nowarn, toasterlint/php-apache-mysql:8.1
-          # build-args: |
-          #   MAKEFLAGS=-j1
+        run: |
+          docker buildx build --push \
+            --tag toasterlint/php-apache-mysql:813-nowarn --tag toasterlint/php-apache-mysql:8.1 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.1
 
   build-8_2:
     runs-on: self-hosted
@@ -143,26 +85,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # - name: Install qemu-user-static
-      #   run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        # with:
-        #   buildkitd-config-inline: |
-        #     [worker.oci]
-        #       max-parallelism = 1
       - name: Build and push 8.2
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./8.2/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: toasterlint/php-apache-mysql:8.2-nowarn, toasterlint/php-apache-mysql:8.2
-          # build-args: |
-          #   MAKEFLAGS=-j1
+        run: |
+          docker buildx build --push \
+            --tag toasterlint/php-apache-mysql:8.2-nowarn --tag toasterlint/php-apache-mysql:8.2 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.2
 
   build-8_3:
     runs-on: self-hosted
@@ -176,23 +103,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # - name: Install qemu-user-static
-      #   run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        # with:
-        #   buildkitd-config-inline: |
-        #     [worker.oci]
-        #       max-parallelism = 1
       - name: Build and push 8.3
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./8.3/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: toasterlint/php-apache-mysql:8.3-nowarn, toasterlint/php-apache-mysql:8.3
-          # build-args: |
-          # #   MAKEFLAGS=-j1
+        run: |
+          docker buildx build --push \
+            --tag toasterlint/php-apache-mysql:8.3-nowarn --tag toasterlint/php-apache-mysql:8.3 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 ./8.3
