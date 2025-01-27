@@ -4,7 +4,7 @@ on: [workflow_dispatch]
 
 jobs:
   build-latest:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     continue-on-error: true
     steps:
       - name: Checkout
@@ -33,7 +33,7 @@ jobs:
           push: true
           tags: toasterlint/php-apache-mysql:latest, toasterlint/php-apache-mysql:8.4-nowarn, toasterlint/php-apache-mysql:8.4, toasterlint/php-apache-mysql:8
   build-7_4:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
           build-args: |
             MAKEFLAGS=-j1
   build-8_0:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     continue-on-error: true
     steps:
       - name: Checkout
@@ -94,7 +94,7 @@ jobs:
           build-args: |
             MAKEFLAGS=-j1
   build-8_1:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     continue-on-error: true
     steps:
       - name: Checkout
@@ -125,7 +125,7 @@ jobs:
           build-args: |
             MAKEFLAGS=-j1
   build-8_2:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     continue-on-error: true
     steps:
       - name: Checkout
@@ -156,7 +156,7 @@ jobs:
           build-args: |
             MAKEFLAGS=-j1
   build-8_3:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     continue-on-error: true
     steps:
       - name: Checkout
