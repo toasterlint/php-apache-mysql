@@ -43,7 +43,6 @@ jobs:
     # Build the ARM64 + ARM/v7 variants
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' }}
     runs-on: self-hosted-arm  # your ARM runner
-    continue-on-error: true
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -174,7 +173,6 @@ jobs:
   build-8_0-amd64:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.0' }}
     runs-on: self-hosted-amd64
-    continue-on-error: true
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -200,7 +198,6 @@ jobs:
   build-8_0-arm:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.0' }}
     runs-on: self-hosted-arm
-    continue-on-error: true
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -251,7 +248,6 @@ jobs:
   build-8_1-amd64:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.1' }}
     runs-on: self-hosted-amd64
-    continue-on-error: true
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -277,7 +273,6 @@ jobs:
   build-8_1-arm:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.1' }}
     runs-on: self-hosted-arm
-    continue-on-error: true
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -328,7 +323,6 @@ jobs:
   build-8_2-amd64:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.2' }}
     runs-on: self-hosted-amd64
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -354,7 +348,6 @@ jobs:
   build-8_2-arm:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.2' }}
     runs-on: self-hosted-arm
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -405,7 +398,6 @@ jobs:
   build-8_3-amd64:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.3' }}
     runs-on: self-hosted-amd64
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -431,7 +423,6 @@ jobs:
   build-8_3-arm:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.3' }}
     runs-on: self-hosted-arm
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
