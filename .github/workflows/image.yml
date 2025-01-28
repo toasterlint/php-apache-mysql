@@ -24,6 +24,7 @@ jobs:
       - name: Build and push latest
         uses: docker/build-push-action@v6
         with:
+          no-cache: true
           context: .
           file: ./8.4/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
@@ -43,6 +44,7 @@ jobs:
       - name: Build and push 7.4
         uses: docker/build-push-action@v6
         with:
+          no-cache: true
           context: .
           file: ./7.4/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
@@ -63,6 +65,7 @@ jobs:
       - name: Build and push 8.0
         uses: docker/build-push-action@v6
         with:
+          no-cache: true
           context: .
           file: ./8.0/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
@@ -83,6 +86,7 @@ jobs:
       - name: Build and push 8.1
         uses: docker/build-push-action@v6
         with:
+          no-cache: true
           context: .
           file: ./8.1/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
@@ -103,6 +107,7 @@ jobs:
       - name: Build and push 8.2
         uses: docker/build-push-action@v6
         with:
+          no-cache: true
           context: .
           file: ./8.2/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
@@ -123,6 +128,7 @@ jobs:
       - name: Build and push 8.3
         uses: docker/build-push-action@v6
         with:
+          no-cache: true
           context: .
           file: ./8.3/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
