@@ -33,7 +33,7 @@ jobs:
         with:
           context: .
           file: ./8.4/Dockerfile
-          platforms: amd64,linux/riscv64
+          platforms: linux/amd64
           push: true
           # Push it under a temporary tag, e.g. "amd64-latest"
           tags: |
@@ -114,7 +114,7 @@ jobs:
         with:
           context: .
           file: ./7.4/Dockerfile
-          platforms: amd64,linux/riscv64
+          platforms: linux/amd64
           push: true
           tags: |
             toasterlint/php-apache-mysql:amd64-7.4
@@ -190,7 +190,7 @@ jobs:
         with:
           context: .
           file: ./8.0/Dockerfile
-          platforms: amd64,linux/riscv64
+          platforms: linux/amd64
           push: true
           tags: |
             toasterlint/php-apache-mysql:amd64-8.0
@@ -265,7 +265,7 @@ jobs:
         with:
           context: .
           file: ./8.1/Dockerfile
-          platforms: amd64,linux/riscv64
+          platforms: linux/amd64
           push: true
           tags: |
             toasterlint/php-apache-mysql:amd64-8.1
@@ -340,7 +340,7 @@ jobs:
         with:
           context: .
           file: ./8.2/Dockerfile
-          platforms: amd64,linux/riscv64
+          platforms: linux/amd64
           push: true
           tags: |
             toasterlint/php-apache-mysql:amd64-8.2
@@ -415,7 +415,7 @@ jobs:
         with:
           context: .
           file: ./8.3/Dockerfile
-          platforms: amd64,linux/riscv64
+          platforms: linux/amd64
           push: true
           tags: |
             toasterlint/php-apache-mysql:amd64-8.3
