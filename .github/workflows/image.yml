@@ -69,7 +69,7 @@ jobs:
   build-latest-armv7:
     # Build only the ARM/v7 variant
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' }}
-    runs-on: self-hosted
+    runs-on: self-hosted-arm
     steps:
       - name: Check out
         uses: actions/checkout@v4
