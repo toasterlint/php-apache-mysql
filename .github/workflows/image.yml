@@ -130,7 +130,7 @@ jobs:
   ###############################################
   build-7_4-amd64:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '7.4' }}
-    runs-on: self-hosted-amd64
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out
         uses: actions/checkout@v6
@@ -155,7 +155,7 @@ jobs:
 
   build-7_4-arm64:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '7.4' }}
-    runs-on: self-hosted-arm
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Check out
         uses: actions/checkout@v6
@@ -180,7 +180,7 @@ jobs:
 
   build-7_4-armv7:
     if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '7.4' }}
-    runs-on: self-hosted-arm
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Check out
         uses: actions/checkout@v6
