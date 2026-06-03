@@ -6,7 +6,7 @@ RUN a2enmod rewrite
 
 # Install PHP extensions
 RUN apt-get update && apt-get -y dist-upgrade
-RUN apt-get install -y --no-install-recommends libpng-dev libjpeg-dev zip unzip m4 libzip-dev libicu-dev imagemagick git autoconf pkg-config mstmp
+RUN apt-get install -y --no-install-recommends libpng-dev libjpeg-dev zip unzip m4 libzip-dev libicu-dev imagemagick git autoconf pkg-config msmtp
 RUN docker-php-ext-configure gd --with-jpeg=/usr && docker-php-ext-install gd
 RUN docker-php-ext-install mysqli && docker-php-ext-install exif && docker-php-ext-install zip && docker-php-ext-install intl
 
