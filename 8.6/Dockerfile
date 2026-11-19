@@ -4,6 +4,9 @@ LABEL maintainer="Henry Mohn <henry@toasterlint.com>"
 # Enable Apache Rewrite Module
 RUN a2enmod rewrite
 
+# Enable Apache Expires Module
+RUN a2enmod expires
+
 # Install PHP extensions
 RUN apt-get update && apt-get -y dist-upgrade
 RUN apt-get install -y --no-install-recommends libpng-dev libjpeg-dev zip unzip m4 libzip-dev libicu-dev imagemagick git autoconf pkg-config msmtp
