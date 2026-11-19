@@ -1,3 +1,4 @@
 # php-apache-mysql
 
-Just the base PHP8.4 Apache image with the MySQL php extension installed
+PHP Apache images with the MySQL PHP extension installed. The build workflow
+publishes PHP 8.6 as `latest` and `8`, along with version-specific tags.

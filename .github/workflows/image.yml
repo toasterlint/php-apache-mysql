@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       php-version:
-        description: "Which PHP version(s) to build: e.g. 'all', '8.2', '8.3'"
+        description: "Which PHP version(s) to build: e.g. 'all', '8.5', '8.6', 'latest'"
         required: false
         default: "all"
 
@@ -14,7 +14,7 @@ jobs:
   ###############################################
   build-latest-amd64:
     # Build only the AMD64 variant
-    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' }}
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' || github.event.inputs.php-version == '8.6' }}
     runs-on: ubuntu-24.04   # x86 runner
     steps:
       - name: Check out
@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
-          file: ./8.5/Dockerfile
+          file: ./8.6/Dockerfile
           platforms: linux/amd64
           push: true
           # Push it under a temporary tag, e.g. "amd64-latest"
@@ -41,7 +41,7 @@ jobs:
 
   build-latest-arm64:
     # Build only the ARM64 variant
-    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' }}
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' || github.event.inputs.php-version == '8.6' }}
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Check out
@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
-          file: ./8.5/Dockerfile
+          file: ./8.6/Dockerfile
           platforms: linux/arm64
           push: true
           # Temporary tag, e.g. "arm64-latest"
@@ -68,7 +68,7 @@ jobs:
 
   build-latest-armv7:
     # Build only the ARM/v7 variant
-    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' }}
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' || github.event.inputs.php-version == '8.6' }}
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Check out
@@ -86,7 +86,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
-          file: ./8.5/Dockerfile
+          file: ./8.6/Dockerfile
           platforms: linux/arm/v7
           push: true
           # Temporary tag, e.g. "armv7-latest"
@@ -95,7 +95,7 @@ jobs:
 
   create-manifest-latest:
     # Combine the three images into a single multi-arch manifest
-    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' }}
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == 'latest' || github.event.inputs.php-version == '8.6' }}
     runs-on: ubuntu-24.04
     needs: [build-latest-amd64, build-latest-arm64, build-latest-armv7]
     steps:
@@ -113,8 +113,8 @@ jobs:
           for i in {1..3}; do
             docker buildx imagetools create \
               --tag toasterlint/php-apache-mysql:latest \
-              --tag toasterlint/php-apache-mysql:8.5-nowarn \
-              --tag toasterlint/php-apache-mysql:8.5 \
+              --tag toasterlint/php-apache-mysql:8.6-nowarn \
+              --tag toasterlint/php-apache-mysql:8.6 \
               --tag toasterlint/php-apache-mysql:8 \
               toasterlint/php-apache-mysql:amd64-latest \
               toasterlint/php-apache-mysql:arm64-latest \
@@ -122,6 +122,119 @@ jobs:
             if [ $i -lt 3 ]; then
               echo "Attempt $i failed, retrying..."
               sleep 5
+            else
+              echo "Failed to create latest manifest after $i attempts" >&2
+              exit 1
+            fi
+          done
+
+  ###############################################
+  # 8.5
+  ###############################################
+  build-8_5-amd64:
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.5' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push AMD64 (8.5)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./8.5/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            toasterlint/php-apache-mysql:amd64-8.5
+
+  build-8_5-arm64:
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.5' }}
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push ARM64 (8.5)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./8.5/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            toasterlint/php-apache-mysql:arm64-8.5
+
+  build-8_5-armv7:
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.5' }}
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push ARMv7 (8.5)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./8.5/Dockerfile
+          platforms: linux/arm/v7
+          push: true
+          tags: |
+            toasterlint/php-apache-mysql:armv7-8.5
+
+  create-manifest-8_5:
+    if: ${{ github.event.inputs.php-version == 'all' || github.event.inputs.php-version == '8.5' }}
+    runs-on: ubuntu-24.04
+    needs: [build-8_5-amd64, build-8_5-arm64, build-8_5-armv7]
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Create multi-arch manifest (8.5)
+        run: |
+          for i in {1..3}; do
+            docker buildx imagetools create \
+              --tag toasterlint/php-apache-mysql:8.5-nowarn \
+              --tag toasterlint/php-apache-mysql:8.5 \
+              toasterlint/php-apache-mysql:amd64-8.5 \
+              toasterlint/php-apache-mysql:arm64-8.5 \
+              toasterlint/php-apache-mysql:armv7-8.5 && break
+            if [ $i -lt 3 ]; then
+              echo "Attempt $i failed, retrying..."
+              sleep 5
+            else
+              echo "Failed to create 8.5 manifest after $i attempts" >&2
+              exit 1
             fi
           done
 
